@@ -10,7 +10,7 @@ public class CalculatorGUI extends JFrame{
     JButton b0, b1, b2, b3, b4, b5, b6, b7, b8, b9; //цифры
     JButton bAdd, bEx, bDiv, bRem, bEq; //кнопки
     String txt = ""; //строка из поля ввода
-    Integer result; //переменная результата
+    Double result; //переменная результата
     char operator; //оператор
 
     OperandClickListener l = new OperandClickListener();
@@ -18,7 +18,7 @@ public class CalculatorGUI extends JFrame{
 
     public CalculatorGUI(String s){ //конструктор
         super(s);
-        setLayout(new FlowLayout());
+        setLayout(new BorderLayout());
         b0 = new JButton("0");
         b1 = new JButton("1");
         b2 = new JButton("2");
@@ -29,6 +29,7 @@ public class CalculatorGUI extends JFrame{
         b7 = new JButton("7");
         b8 = new JButton("8");
         b9 = new JButton("9");
+
 
         bAdd = new JButton("+");
         bEx = new JButton("*");
@@ -123,7 +124,7 @@ public class CalculatorGUI extends JFrame{
             /*
               Записываем введенные до знака цифры в буфер. Узнаем операцию, которую будем производить
              */
-            result = Integer.parseInt(txt); //заносим первый ввод в буфер
+            result = Double.parseDouble(txt); //заносим первый ввод в буфер
             operator = op; //операция приходит из обработчика нажатия
 
             //очищаем поля
@@ -158,7 +159,7 @@ public class CalculatorGUI extends JFrame{
                         catch (ArithmeticException ex){ //ловим единственно возможную в данном случае ошибку - деление на 0
                             tfShow.setText("На ноль делить нельзя!");
                             txt = "";
-                            result = 0;
+                            result = 0.0;
                 }
             }
         }
