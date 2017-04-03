@@ -3,6 +3,7 @@ package com.petrash.calc;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.text.BreakIterator;
 
 public class CalculatorGUI extends JFrame{
 
@@ -18,7 +19,7 @@ public class CalculatorGUI extends JFrame{
 
     public CalculatorGUI(String s){ //конструктор
         super(s);
-        setLayout(new BorderLayout());
+        setLayout(new FlowLayout(100));
         b0 = new JButton("0");
         b1 = new JButton("1");
         b2 = new JButton("2");
@@ -134,32 +135,37 @@ public class CalculatorGUI extends JFrame{
 
         @Override
         public void actionPerformed(ActionEvent e) { //реализуем метод actionPerformed интерфейса ActionListener
-            if (e.getSource() == bAdd){
+            if (e.getSource() == bAdd) {
                 performOper('+');
-            }else if (e.getSource() == bEx){
+            } else if (e.getSource() == bEx) {
                 performOper('*');
-            }else if (e.getSource() == bDiv){
+            } else if (e.getSource() == bDiv) {
                 performOper('/');
-            }else if (e.getSource() == bRem){
+            } else if (e.getSource() == bRem) {
                 performOper('-');
-            }else if (e.getSource() == bEq){
+            } else if (e.getSource() == bEq) {
                 try {
                     switch (operator) {
                         case '+':
-                            result = result + Integer.parseInt(txt);
+                            result = result + Double.parseDouble(txt);
+                            break;
                         case '-':
-                            result = result - Integer.parseInt(txt);
+                            result = result - Double.parseDouble(txt);
+                            break;
                         case '*':
-                            result = result * Integer.parseInt(txt);
+                            result = result * Double.parseDouble(txt);
+                            break;
                         case '/':
-                            result = result / Integer.parseInt(txt);
+                            result = result / Double.parseDouble(txt);
+                            break;
                     }
                     tfShow.setText("Результат: " + result);
-                }
-                        catch (ArithmeticException ex){ //ловим единственно возможную в данном случае ошибку - деление на 0
-                            tfShow.setText("На ноль делить нельзя!");
-                            txt = "";
-                            result = 0.0;
+                    txt = "";
+                    result = 0.0;
+                } catch (ArithmeticException ex) { //ловим единственно возможную в данном случае ошибку - деление на 0
+                    tfShow.setText("На ноль делить нельзя!");
+                    txt = "";
+                    result = 0.0;
                 }
             }
         }
